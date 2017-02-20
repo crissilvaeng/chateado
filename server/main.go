@@ -19,14 +19,12 @@ func main() {
 		return
 	}
 
-	defer conn.Close()
-
 	for {
 		raw := make([]byte, 1024)
 
 		length, err := conn.Read(raw)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println("Read error: ", err)
 			return
 		}
 
@@ -36,7 +34,7 @@ func main() {
 
 		length, err = conn.Write(raw)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println("Write error:", err)
 			return
 		}
 

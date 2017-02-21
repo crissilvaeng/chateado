@@ -26,8 +26,6 @@ func (w *worker) Perform(request protocol.Request) {
 }
 
 func (w *worker) Run() {
-	w.available = true
-
 	for w.available {
 		if w.queue.Size() > 0 {
 			req := w.queue.Pop()
@@ -35,23 +33,23 @@ func (w *worker) Run() {
 
 			raw, err := req.Build()
 			if err != nil {
-				return
+				fmt.Println(err)
 			}
 
 			err = w.conn.Write(raw)
 			if err != nil {
-				return
+				fmt.Println(err)
 			}
 
 			data, err := w.conn.Read()
 			if err != nil {
-				return
+				fmt.Println(err)
 			}
 
 			resp := protocol.Response{}
 			err = resp.Build(string(data))
 			if err != nil {
-				return
+				fmt.Println(err)
 			}
 
 			w.next = resp.Reference
@@ -59,7 +57,7 @@ func (w *worker) Run() {
 			if resp.Data != nil {
 				contents := (*resp.Data)
 				for _, content := range contents {
-					fmt.Println(content.Sender, ">", content.Message)
+					fmt.Println(">", content.Sender, ":", content.Message)
 				}
 			}
 		}
@@ -73,5 +71,5 @@ func (w *worker) Stop() {
 // NewWorker cria um novo Worker baseado em Collectable e Communicable e
 // retorna interface Workerable para sua manipulação.
 func NewWorker(queue core.Collectable, conn core.Communicable) Workerable {
-	return &worker{queue: queue, conn: conn, next: 0}
+	return &worker{queue: queue, conn: conn, next: 0, available: true}
 }

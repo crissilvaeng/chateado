@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"os"
 
 	"github.com/crissilvaeng/chateado/client/args"
@@ -28,11 +27,6 @@ func main() {
 	worker.Perform(service.Login())
 
 	for {
-		reader := bufio.NewReader(os.Stdin)
-		message, err := reader.ReadString('\n')
-		if err != nil {
-			return
-		}
-		worker.Perform(service.Sends("maria", message))
+		worker.Perform(service.Sends("maria", "message"))
 	}
 }

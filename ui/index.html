@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Chateado</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="chat_window">
+        <div class="top_menu">
+            <div class="buttons">
+            <div class="button close"></div>
+            <div class="button minimize"></div>
+            <div class="button maximize"></div>
+            </div>
+            <div class="title">
+            Chat
+            </div>
+        </div>
+        <ul class="messages"></ul>
+        <div class="bottom_wrapper clearfix">
+            <div class="message_input_wrapper">
+            <input class="message_input" placeholder="Type your message here..." />
+            </div>
+            <div class="send_message">
+            <div class="icon"></div>
+            <div class="text">
+                Send
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="message_template">
+        <li class="message">
+            <div class="avatar"></div>
+            <div class="text_wrapper">
+            <div class="text"></div>
+            </div>
+        </li>
+        </div>
+
+        <!-- Insert this line above script imports  -->
+        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+        <!-- normal script imports etc  -->
+        <script src="scripts/jquery.min.js"></script>    
+        <script src="scripts/index.js"></script>    
+
+        <!-- Insert this line after script imports -->
+        <script>if (window.module) module = window.module;</script>
+    </body>
+</html>

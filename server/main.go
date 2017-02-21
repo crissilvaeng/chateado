@@ -14,12 +14,12 @@ func main() {
 
 	fmt.Println("Launching server in 0.0.0.0:3000...")
 
-	conn, err := ln.Accept()
-	if err != nil {
-		return
-	}
-
 	for {
+		conn, err := ln.Accept()
+		if err != nil {
+			return
+		}
+
 		raw := make([]byte, 1024)
 
 		length, err := conn.Read(raw)
@@ -30,7 +30,14 @@ func main() {
 
 		fmt.Println("Read", length, "bytes.")
 
-		raw = raw[:length]
+		raw = []byte(`{
+                "id": "0",
+                "msgNr": 54,
+                "data": [
+                    {"src":"maria","data":"oi!"},
+                    {"src":"maria","data":"kd vc?"}
+                ]
+            }`)
 
 		length, err = conn.Write(raw)
 		if err != nil {
